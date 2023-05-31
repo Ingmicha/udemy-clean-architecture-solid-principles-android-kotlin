@@ -5,7 +5,7 @@ import com.ingmicha.android.compose.core.usecase.GetAllNotes
 import com.ingmicha.android.compose.core.usecase.GetNote
 import com.ingmicha.android.compose.core.usecase.RemoveNote
 
-data class UseCase(
+data class UseCases(
     val addNote: AddNote,
     val getAllNotes: GetAllNotes,
     val getNote: GetNote,
