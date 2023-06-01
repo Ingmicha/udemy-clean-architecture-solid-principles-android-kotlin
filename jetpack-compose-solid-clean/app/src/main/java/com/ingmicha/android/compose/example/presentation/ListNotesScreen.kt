@@ -1,6 +1,8 @@
 package com.ingmicha.android.compose.example.presentation
 
+import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -46,14 +48,17 @@ fun ListNotesScreen(listViewModel: ListViewModel) {
 fun ListItemNote(noteList: List<Note> = emptyList()) {
     LazyColumn() {
         items(items = noteList) {
-            ItemNote(it)
+            ItemNote(it) { navigateToNote(it) }
         }
     }
 }
 
 @Preview
 @Composable
-fun ItemNote(note: Note = Note("Title", "Content", 1685569192642, 1685569192642)) {
+fun ItemNote(
+    note: Note = Note("Title", "Content", 1685569192642, 1685569192642),
+    onClick: (Long) -> Unit = {}
+) {
 
     val sdf = SimpleDateFormat("MMM dd, HH:mm:ss", Locale.getDefault())
 
@@ -61,6 +66,7 @@ fun ItemNote(note: Note = Note("Title", "Content", 1685569192642, 1685569192642)
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
+            .clickable { onClick(note.id) }
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
@@ -85,4 +91,8 @@ fun ItemNote(note: Note = Note("Title", "Content", 1685569192642, 1685569192642)
             )
         }
     }
+}
+
+fun navigateToNote(id: Long) {
+    Log.i("ListNotesScreen::navigateToNote", "$id")
 }
