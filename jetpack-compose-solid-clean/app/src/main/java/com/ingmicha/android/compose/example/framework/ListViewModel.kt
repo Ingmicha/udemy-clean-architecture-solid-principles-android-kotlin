@@ -9,22 +9,20 @@ import com.ingmicha.android.compose.core.usecase.AddNote
 import com.ingmicha.android.compose.core.usecase.GetAllNotes
 import com.ingmicha.android.compose.core.usecase.GetNote
 import com.ingmicha.android.compose.core.usecase.RemoveNote
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ListViewModel(context: Context) : ViewModel() {
+@HiltViewModel
+class ListViewModel @Inject constructor(@ApplicationContext context: Context) : ViewModel() {
 
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
-    private val repository = NoteRepository(RoomNoteDataSource(context))
-
-    private val useCases = UseCases(
-        AddNote(repository),
-        GetAllNotes(repository),
-        GetNote(repository),
-        RemoveNote(repository)
-    )
+    @Inject
+    lateinit var useCases: UseCases
 
     val notes = MutableLiveData<List<Note>>()
 

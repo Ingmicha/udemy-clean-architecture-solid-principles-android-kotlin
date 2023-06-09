@@ -5,9 +5,11 @@ import com.ingmicha.android.compose.core.data.Note
 import com.ingmicha.android.compose.core.repository.NoteDataSource
 import com.ingmicha.android.compose.example.framework.db.DatabaseService
 import com.ingmicha.android.compose.example.framework.db.NoteEntity
+import javax.inject.Inject
 
-class RoomNoteDataSource(context: Context) : NoteDataSource {
-    val noteDao = DatabaseService.getInstance(context).noteDao()
+class RoomNoteDataSource @Inject constructor(context: Context) :
+    NoteDataSource {
+    private val noteDao = DatabaseService.getInstance(context).noteDao()
 
     override suspend fun add(note: Note) {
         noteDao.addNoteEntity(NoteEntity.fromNote(note))
