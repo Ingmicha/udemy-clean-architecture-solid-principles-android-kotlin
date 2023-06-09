@@ -2,7 +2,7 @@ package com.ingmicha.android.compose.core.repository
 
 import com.ingmicha.android.compose.core.data.Note
 
-class NoteRepository(private val dataSource: NoteDataSource) {
+class NoteRepository (private val dataSource: NoteDataSource) {
     suspend fun addNote(note: Note) = dataSource.add(note)
 
     suspend fun getNote(id: Long) = dataSource.get(id)
